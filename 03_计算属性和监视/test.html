@@ -26,7 +26,33 @@
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-
+  const obj = {
+    firstName: 'A',
+    lastName: 'B'
+  }
+  // obj.fullName = 'A-B'
+  Object.defineProperty(obj, 'fullName', { // 配置对象: 属性描述符
+    // value: obj.firstName + '-' + obj.lastName
+    // 当读取当前属性值时回调, 函数的返回值作为属性值, this属性所属的对象
+    get () {
+      console.log('get()')
+      return this.firstName + '-' + this.lastName // 根据已有其它相关属性数据进行计算
+    },
+    // 当属性值发生了改变时回调, 用来监视属性值的变化, 从而去更新相关的属性数据, this属性所属的对象
+    set (value) {// fullName的最新value: E-F
+      console.log('set()', value)
+      const names = value.split('-')
+      this.firstName = names[0]
+      this.lastName = names[1]
+    }
+  })
+  console.log(obj.fullName) // A-B
+  obj.firstName = 'C'
+  obj.lastName = 'D'
+  console.log(obj.fullName) // C-D
+  obj.fullName = 'E-F'
+  console.log(obj.firstName, obj.lastName)  // E F
+  
 </script>
 </body>
 </html>
