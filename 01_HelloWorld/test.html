@@ -27,11 +27,29 @@
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
   const vm = new Vue({ // 配置对象(属性名是固定的一些名称)
-    el: '#test',  // element, 指定vue管理的区域元素
-    data: {  // 为模板提供数据
-      name: 'atguigu'  // 初始值
+    // el: '#test',  // element, 指定vue管理的区域元素
+    data: function () {
+      // 更加动态
+      return {  // 为模板提供数据
+        name: 'atguigu'  // 初始值
+      }
     }
   })
+  vm.$mount('#test')
+
+  vm.name = 'xxx'  // setter
+  console.log(vm._data.name, vm.name) // xxx   getter
+
+  var obj = {
+    get name () {
+      return 3
+    },
+    set name (value) {
+      console.log('set()', value)
+    }
+  }
+  console.log(obj.name)
+  obj.name = 'tom'
 
 </script>
 </body>
