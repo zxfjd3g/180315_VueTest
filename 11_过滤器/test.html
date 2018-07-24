@@ -22,11 +22,27 @@
 <!--需求: 对当前时间进行指定格式显示-->
 <div id="test">
   <h2>显示格式化的日期时间</h2>
+  <h3>{{startTime}}</h3>
+  <h3>{{startTime | date-str}}</h3>
+  <h3>年月日: {{startTime | date-str('YYYY-MM-DD')}}</h3>
+  <h3>时分秒: {{startTime | date-str('HH:mm:ss')}}</h3>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.22.1/moment.min.js"></script>
 <script>
+  // 自定义一个过滤器
+  Vue.filter('date-str', function (value, format='YYYY-MM-DD HH:mm:ss') {
+    // return moment(value).format(format || 'YYYY-MM-DD HH:mm:ss');
+    return moment(value).format(format);
+  })
 
+  new Vue({
+    el: '#test',
+    data: {
+      startTime: new Date()
+    }
+  })
 </script>
 </body>
 </html>
